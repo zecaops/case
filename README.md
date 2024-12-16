@@ -12,16 +12,17 @@ Node.js (para rodar o frontend localmente)
 ## Estrutura do Projeto
 O projeto é composto por três serviços principais, todos configurados e orquestrados usando Docker Compose:
 
-Backend (Ruby on Rails): Exposição da API de Pokémons.
-Frontend (React): Consome a API do backend e exibe as informações dos Pokémons na interface gráfica.
-Banco de Dados (MySQL): Armazena as informações dos Pokémons.
+## Backend (Ruby on Rails): Exposição da API de Pokémons.
+## Frontend (React): Consome a API do backend e exibe as informações dos Pokémons na interface gráfica.
+## Banco de Dados (MySQL): Armazena as informações dos Pokémons.
+## Além disso, vale ressaltar que foi criado um Dockerfile nas pastas devopscaseback (para o backend) e devopscasefront (para o frontend). O papel desses arquivos Dockerfile é criar as imagens que serão utilizadas pelo Docker Compose para rodar o backend e o frontend dentro de containers.
 
 ## Docker Compose
 Utilizei o Docker Compose para orquestrar os serviços do projeto. Ele permite a definição e execução de múltiplos containers Docker a partir de um único arquivo de configuração (docker-compose.yml). Neste projeto, o Docker Compose faz o seguinte:
 
-Subir o Banco de Dados MySQL: O container do banco de dados é iniciado com a base de dados devopscase_development.
-Subir o Backend (Ruby on Rails): O backend conecta-se ao banco de dados e expõe a API de Pokémons.
-Subir o Frontend (React): O frontend consome a API do backend e exibe as informações dos Pokémons.
+## Subir o Banco de Dados MySQL: O container do banco de dados é iniciado com a base de dados devopscase_development.
+## Subir o Backend (Ruby on Rails): O backend conecta-se ao banco de dados e expõe a API de Pokémons.
+## Subir o Frontend (React): O frontend consome a API do backend e exibe as informações dos Pokémons.
 
 ## Como Usar o Docker Compose
 Clone o repositório:
@@ -33,32 +34,32 @@ cd <nome-do-repositorio>
 docker-compose up --build
 Isso irá:
 
-Baixar as imagens necessárias para o banco de dados e o backend.
-Criar as tabelas no banco de dados e rodar as migrações.
-Subir os containers para o backend (Rails) e frontend (React).
+## Baixar as imagens necessárias para o banco de dados e o backend.
+## Criar as tabelas no banco de dados e rodar as migrações.
+## Subir os containers para o backend (Rails) e frontend (React).
 
 ## Acessando a Aplicação
-Frontend (React): A interface de usuário estará disponível em http://172.18.0.4:5173/. Você pode também procurar a URL no terminal, que será exibida quando o Docker Compose estiver construindo os containers.
+## Frontend (React): A interface de usuário estará disponível em http://172.18.0.4:5173/. Você pode também procurar a URL no terminal, que será exibida quando o Docker Compose estiver construindo os containers.
 
 ## Estrutura do Banco de Dados
 A tabela pokemons foi criada no banco de dados com os seguintes campos:
 
-id: Identificador único do Pokémon (gerado automaticamente).
-name: Nome do Pokémon.
-abilities: Habilidades do Pokémon.
-sprite_url: URL para a imagem do Pokémon.
-created_at: Data de criação do registro.
-updated_at: Data de atualização do registro.
-O banco de dados é inicializado com 40 registros de Pokémons. Esses dados podem ser acessados através da API exposta pelo backend.
+## id: Identificador único do Pokémon (gerado automaticamente).
+## name: Nome do Pokémon.
+## abilities: Habilidades do Pokémon.
+## sprite_url: URL para a imagem do Pokémon.
+## created_at: Data de criação do registro.
+## updated_at: Data de atualização do registro.
+## O banco de dados é inicializado com 40 registros de Pokémons. Esses dados podem ser acessados através da API exposta pelo backend.
 
 ## Configuração do Banco de Dados no Backend
 O backend está configurado para se conectar ao banco de dados MySQL através de variáveis de ambiente definidas no arquivo docker-compose.yml:
 
-DB_USERNAME: Nome do usuário do banco de dados.
-DB_PASSWORD: Senha do banco de dados.
-DB_HOST: Endereço do serviço do banco de dados (dentro do Docker Compose, é chamado de db).
-DB_NAME: Nome do banco de dados (devopscase_development).
-Para acessar o backend dentro do Docker:
+## DB_USERNAME: Nome do usuário do banco de dados.
+## DB_PASSWORD: Senha do banco de dados.
+## DB_HOST: Endereço do serviço do banco de dados (dentro do Docker Compose, é chamado de db).
+## DB_NAME: Nome do banco de dados (devopscase_development).
+## Para acessar o backend dentro do Docker:
 Execute o comando docker ps para ver o ID do container.
 Acesse o container do backend com o comando:
 docker exec -it <ID-do-container> bash
