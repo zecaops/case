@@ -20,13 +20,13 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd devopscasefront   # Navega até o diretório do frontend
-          npm install           # Instala as dependências do frontend
+          cd devopscasefront
+          npm install          
 
       - name: Build Frontend
         run: |
-          cd devopscasefront    # Navega até o diretório do frontend
-          npm run build          # Constrói o frontend
+          cd devopscasefront    
+          npm run build          
 
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v20
@@ -34,3 +34,4 @@ jobs:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-args: '--yes'  
