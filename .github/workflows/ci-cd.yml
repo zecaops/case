@@ -3,36 +3,34 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main   # Gatilho para rodar o workflow quando houver push para a branch main
-  pull_request:
-    branches:
-      - main   # Gatilho para rodar o workflow em pull requests para a branch main
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3  # Faz o checkout do código
-    
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: '16'  # Defina a versão do Node.js que você está utilizando
+          node-version: '16'
 
       - name: Install dependencies
         run: |
-          npm install  # Instala as dependências do frontend (React)
-    
-      - name: Build the project
+          cd devopscasefront   # Navega até o diretório do frontend
+          npm install           # Instala as dependências do frontend
+
+      - name: Build Frontend
         run: |
-          npm run build  # Roda o build do frontend
-    
+          cd devopscasefront    # Navega até o diretório do frontend
+          npm run build          # Constrói o frontend
+
       - name: Deploy to Vercel
-        run: |
-          curl -fsSL https://vercel.com/download | bash  # Baixa e instala a CLI do Vercel
-          vercel login ${{ secrets.VERCEL_TOKEN }}  # Faz login no Vercel usando o token
-          vercel --prod --confirm --token ${{ secrets.VERCEL_TOKEN }}  # Realiza o deploy para produção
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}  # Utiliza o token armazenado como secret no GitHub
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
